@@ -1,4 +1,5 @@
 import time
+import datetime
 from process import process
 
 class manager(object):
@@ -6,7 +7,7 @@ class manager(object):
     __list = []
 
     def __init__(self):
-        pass
+        self.__time_execution = datetime.datetime.now()
 
     def __add_process(self, process):
         self.__list.append(process)
@@ -42,9 +43,13 @@ class manager(object):
             if(i.ttl == 0):
                 print('--------------------------------------')
                 print(f'Encerrando o processo... PID: {i.pid} | Priority: {i.priority}')
+                print(f'Tempo de Execução: {self.__time_process(i)}')
                 print('--------------------------------------')
                 self.__list.remove(i)
         time.sleep(3)
+
+    def __time_process(self, process):
+        return (datetime.datetime.now() - process.time)
 
     def execution_process(self, quantidade):
         for i in range(quantidade):
@@ -55,7 +60,7 @@ class manager(object):
          while(len(self.__list) > 0):
             for i in range(len(self.__list)):
                 self.__remove_process()
-            print('Todos os processos foram encerrados, caro usuário')
+            print(f'Todos os processos foram encerrados, caro usuário - Tempo total: {(datetime.datetime.now() - self.__time_execution)}')
 
 
 

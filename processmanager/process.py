@@ -1,4 +1,5 @@
 from random import randint
+import datetime
 
 class process(object):
 
@@ -6,6 +7,8 @@ class process(object):
         self.__pid = self.__generate_process_random(1000, 9999)
         self.__ttl = self.__generate_process_random(0, 5)
         self.__priority = self.__generate_process_random(0, 4)
+        self.__size = self.__generate_process_random(0, 1000)
+        self.__time = datetime.datetime.now()
         self.__execution = False
 
     @property
@@ -24,6 +27,10 @@ class process(object):
     def execution(self):
         return self.__execution
 
+    @property
+    def time(self):
+        return self.__time
+
     def process_execution(self):
         self.__ttl -= 1
 
@@ -34,4 +41,4 @@ class process(object):
         return randint(init, finish)
 
     def __str__(self):
-        return f'| PID: {self.__pid} | Priority: {self.__priority} | TTL: {self.__ttl} | Execution: {self.__execution} '
+        return f'| PID: {self.__pid} | Priority: {self.__priority} | TTL: {self.__ttl} | Size: {self.__size} Bytes | Time: {self.__time.strftime("%Y-%m-%d %H:%M:%S %z")} | Execution: {self.__execution} '
